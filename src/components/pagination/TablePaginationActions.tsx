@@ -40,7 +40,7 @@ const TablePaginationActions = (props: TablePaginationActionsProps) => {
   };
 
   return (
-    <Box sx={BOX_CONTAINER_STYLE}>
+    <Box sx={BOX_CONTAINER_STYLE} data-testid="tablePaginationActions">
       <IconButton
         onClick={handleFirstPageButtonClick}
         disabled={page === 0}

@@ -18,6 +18,7 @@ const SearchInput: React.FC<{ onChange: onChangeHandler }> = (props) => {
       id="standard-basic"
       label="Search Name"
       variant="standard"
+      data-testid="searchInput"
     />
   );
 };

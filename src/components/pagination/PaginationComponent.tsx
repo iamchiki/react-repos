@@ -26,6 +26,7 @@ export const PaginationComponent: React.FC<PaginationOptionType> = (props) => {
       onPageChange={onPageChange}
       onRowsPerPageChange={onRowsPerPageChange}
       ActionsComponent={TablePaginationActions}
+      data-testid="paginationComponent"
     />
   );
 };

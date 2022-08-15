@@ -67,7 +67,10 @@ const TableComponent: React.FC<{
   };
 
   return (
-    <TableContainer sx={TABLE_CONTAINER_STYLE} component={Paper}>
+    <TableContainer
+      sx={TABLE_CONTAINER_STYLE}
+      component={Paper}
+      data-testid="tableComponent">
       <Table stickyHeader sx={TABLE_STYLE} aria-label="custom pagination table">
         <TableHead>
           <TableRow>
