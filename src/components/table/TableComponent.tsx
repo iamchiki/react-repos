@@ -37,15 +37,17 @@ const TableComponent: React.FC<{
   repos: {
     repo: RepoTyp;
   }[];
+  onPageChange: (pageDirection: string) => void;
 }> = (props) => {
-  const { repos } = props;
+  const { repos, onPageChange } = props;
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const repoArr =
-    rowsPerPage > 0
-      ? repos.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-      : repos;
+  // const repoArr =
+  //   rowsPerPage > 0
+  //     ? repos.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+  //     : repos;
+  const repoArr = repos;
 
   const emptyRows: number =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - repos.length) : 0;
@@ -56,7 +58,16 @@ const TableComponent: React.FC<{
     newPage: number
   ) => {
     setPage(newPage);
+    if (newPage > page) {
+      onPageChange("next");
+    } else if (newPage < page) {
+      onPageChange("prev");
+    }
+    console.log("page no", page);
+    console.log("new page no", newPage);
   };
+  // console.log("repo arr", repoArr);
+  // console.log("repos table", repos);
 
   // handler function when no. of rows per page is changed
   const handleChangeRowsPerPage = (

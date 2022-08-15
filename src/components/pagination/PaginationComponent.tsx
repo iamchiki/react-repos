@@ -19,7 +19,8 @@ export const PaginationComponent: React.FC<PaginationOptionType> = (props) => {
     <TablePagination
       rowsPerPageOptions={ROWS_PER_PAGE_ARR}
       colSpan={3}
-      count={count}
+      // count={count}
+      count={226213}
       rowsPerPage={rowsPerPage}
       page={page}
       SelectProps={SELECT_PROPS}
