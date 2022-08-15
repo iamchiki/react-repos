@@ -51,4 +51,4 @@ A simple React Application that renders list of react repositories in the table 
 
 ### Demo Link
 
-- [Live URL](https://react-repos-app.netlify.app/)
+- [Live URL](https://react-github-repos.netlify.app/)
