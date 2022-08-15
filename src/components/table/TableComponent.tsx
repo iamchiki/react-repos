@@ -38,15 +38,13 @@ const TableComponent: React.FC<{
     repo: RepoTyp;
   }[];
   onPageChange: (pageDirection: string) => void;
+  onChangeLimit: (pageLimit: number) => void;
+  repositoryCount: number;
 }> = (props) => {
-  const { repos, onPageChange } = props;
+  const { repos, onPageChange, onChangeLimit, repositoryCount } = props;
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  // const repoArr =
-  //   rowsPerPage > 0
-  //     ? repos.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-  //     : repos;
   const repoArr = repos;
 
   const emptyRows: number =
@@ -63,11 +61,7 @@ const TableComponent: React.FC<{
     } else if (newPage < page) {
       onPageChange("prev");
     }
-    console.log("page no", page);
-    console.log("new page no", newPage);
   };
-  // console.log("repo arr", repoArr);
-  // console.log("repos table", repos);
 
   // handler function when no. of rows per page is changed
   const handleChangeRowsPerPage = (
@@ -75,6 +69,7 @@ const TableComponent: React.FC<{
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+    onChangeLimit(parseInt(event.target.value, 10));
   };
 
   return (
@@ -130,7 +125,7 @@ const TableComponent: React.FC<{
         <TableFooter sx={TABLE_FOOTER_STYLE}>
           <TableRow>
             <PaginationComponent
-              count={repos.length}
+              count={repositoryCount}
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={handleChangePage}

@@ -7,7 +7,6 @@ import { BOX_STYLE, CONTAINER_STYLE } from "./styles";
 import { gql, useQuery } from "@apollo/client";
 
 const TOPIC_QUERY = "topic:react";
-const COUNT = 50;
 const GET_REPOS = gql`
   query Repos(
     $query: String!
@@ -35,6 +34,7 @@ const GET_REPOS = gql`
           }
         }
       }
+      repositoryCount
       pageInfo {
         hasNextPage
         endCursor
@@ -45,10 +45,11 @@ const GET_REPOS = gql`
 `;
 
 const RepositoryList = () => {
+  const [limit, setLimit] = useState<number | null>(5);
   const [firstCount, setFirstCount] = useState<number | null>(5);
   const [lastCount, setLastCount] = useState<number | null>();
-  const [after, setAfter] = useState();
-  const [before, setBefore] = useState();
+  const [after, setAfter] = useState<string | null>();
+  const [before, setBefore] = useState<string | null>();
 
   const [repoList, setRepoList] = useState([]);
   const { data, loading } = useQuery(GET_REPOS, {
@@ -61,9 +62,11 @@ const RepositoryList = () => {
     },
   });
 
+  let totalRepos: number = 0;
+  if (data) {
+    totalRepos = data.search.repositoryCount;
+  }
   const masterList = data?.search?.repos;
-
-  // console.log("data", data);
 
   let list: {
     repo: RepoTyp;
@@ -76,19 +79,25 @@ const RepositoryList = () => {
   } else {
     list = data.search.repos;
   }
-  // console.log("list", list);
 
   // change handler called after changing page
   const changeHandler = (pageDirection: string) => {
-    console.log("direction", pageDirection);
     if (pageDirection === "next") {
       setAfter(data.search.pageInfo.endCursor);
+      setBefore(null);
+      setLastCount(null);
+      setFirstCount(limit);
     } else if (pageDirection === "prev") {
-      console.log("start", data.search.pageInfo.startCursor);
       setBefore(data.search.pageInfo.startCursor);
-      setLastCount(5);
+      setLastCount(limit);
       setFirstCount(null);
+      setAfter(null);
     }
+  };
+
+  const limitChangeHandler = (pageLimit: number) => {
+    setLimit(pageLimit);
+    setFirstCount(pageLimit);
   };
 
   // filter repos based on input keyword
@@ -105,7 +114,12 @@ const RepositoryList = () => {
     <Box sx={BOX_STYLE} data-testid="repositoryList">
       <SearchInput onChange={filterRepos} />
       <div style={CONTAINER_STYLE}>
-        <TableComponent repos={list} onPageChange={changeHandler} />
+        <TableComponent
+          repos={list}
+          onPageChange={changeHandler}
+          onChangeLimit={limitChangeHandler}
+          repositoryCount={totalRepos}
+        />
       </div>
     </Box>
   );

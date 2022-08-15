@@ -23,7 +23,11 @@ const repos = [
 describe("test TableComponent", () => {
   it("should render TableComponent", () => {
     render(
-      <TableComponent repos={repos} onPageChange={() => {}}></TableComponent>
+      <TableComponent
+        repos={repos}
+        onPageChange={() => {}}
+        onChangeLimit={() => {}}
+        repositoryCount={100}></TableComponent>
     );
     const tableComponent = screen.getByTestId("tableComponent");
     expect(tableComponent).toBeTruthy();

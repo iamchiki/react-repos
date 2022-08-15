@@ -5,7 +5,7 @@ import { PaginationOptionType } from "../../utils/types";
 import TablePaginationActions from "./TablePaginationActions";
 
 // different values to show no. of rows in table
-const ROWS_PER_PAGE_ARR = [5, 10, 25, { label: "All", value: -1 }];
+const ROWS_PER_PAGE_ARR = [5, 10, 25];
 const SELECT_PROPS = {
   inputProps: {
     "aria-label": "rows per page",
@@ -19,8 +19,7 @@ export const PaginationComponent: React.FC<PaginationOptionType> = (props) => {
     <TablePagination
       rowsPerPageOptions={ROWS_PER_PAGE_ARR}
       colSpan={3}
-      // count={count}
-      count={226213}
+      count={count}
       rowsPerPage={rowsPerPage}
       page={page}
       SelectProps={SELECT_PROPS}
