@@ -98,6 +98,7 @@ const RepositoryList = () => {
   const limitChangeHandler = (pageLimit: number) => {
     setLimit(pageLimit);
     setFirstCount(pageLimit);
+    setAfter(null);
   };
 
   // filter repos based on input keyword
