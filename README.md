@@ -2,7 +2,7 @@
 
 A simple React Application that renders list of react repositories in the table with name search filter.
 
-## Installation and Setup Instructions
+### Installation and Setup Instructions
 
 Clone down this repository. You will need `node` and `npm` installed globally on your machine.
 
